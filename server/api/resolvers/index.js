@@ -46,6 +46,7 @@ module.exports = app => {
          */
         return null;
       },
+      //Get user by ID
       async user(parent, { id }, { pgResource }, info) {
         try {
           const user = await pgResource.getUserById(id);
@@ -54,103 +55,68 @@ module.exports = app => {
           throw new ApolloError(e);
         }
       },
+      //Get Items by ID
       async items(parent, { filter }, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct items from Postgres
         try {
           const item = pgResource.getItems(filter);
           return item;
         } catch (error) {
           throw new ApolloError();
         }
-        // -------------------------------
       },
+      //Get Tags
       async tags(parent, { id }, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct tags from Postgres
         try {
           return pgResource.getTags();
         } catch (error) {
           throw new ApolloError();
         }
-        // -------------------------------
       }
     },
 
     User: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The User GraphQL type has two fields that are not present in the
-       *  user table in Postgres: items and borrowed.
-       *
-       *  According to our GraphQL schema, these fields should return a list of
-       *  Items (GraphQL type) the user has lent (items) and borrowed (borrowed).
-       *
-       */
-      // @TODO: Uncomment these lines after you define the User type with these fields
+      //Get items owned by specififc user
       items(root, _, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct items from Postgres
         try {
           return pgResource.getItemsForUser(root.id);
         } catch (error) {
           new ApolloError();
         }
-        //   // -------------------------------
       },
+      //Get items borrowed by user
       borrowed(root, _, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct items from Postgres
         try {
           return pgResource.getBorrowedItemsForUser(root.id);
         } catch (error) {
           new ApolloError();
         }
-        // -------------------------------
       }
-      // -------------------------------
     },
 
     Item: {
-      /**
-       *  @TODO: Advanced resolvers
-       *
-       *  The Item GraphQL type has two fields that are not present in the
-       *  Items table in Postgres: itemowner, tags and borrower.
-       *
-       * According to our GraphQL schema, the itemowner and borrower should return
-       * a User (GraphQL type) and tags should return a list of Tags (GraphQL type)
-       *
-       */
-      // @TODO: Uncomment these lines after you define the Item type with these fields
+      //Get user that owns item
       async itemowner(root, _, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct user from Postgres
         try {
           return pgResource.getUserById(root.ownerid);
         } catch (error) {
           new ApolloError();
         }
-
-        // -------------------------------
       },
-
+      //Get Tags for item
       async tags(root, _, { pgResource }) {
-        // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
         try {
           return pgResource.getTagsForItem(root.id);
         } catch (error) {
           new ApolloError();
         }
-        //   // -------------------------------
       },
+      //Get user that borrows item
       async borrower(root, _, { pgResource }) {
-        /**
-         * @TODO: Replace this mock return statement with the correct user from Postgres
-         * or null in the case where the item has not been borrowed.
-         */
         try {
           return pgResource.getUserById(root.borrowerid);
         } catch (error) {
           new ApolloError();
         }
-        // -------------------------------
       }
       // async imageurl({ imageurl, imageid, mimetype, data }) {
       //   if (imageurl) return imageurl

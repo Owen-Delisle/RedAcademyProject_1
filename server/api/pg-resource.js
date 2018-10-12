@@ -87,7 +87,7 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: 'select * from users where users.id = $1', // @TODO: Basic queries
+        text: 'select * from users where users.id = $1',
         values: [id]
       };
 
@@ -107,17 +107,6 @@ module.exports = postgres => {
     async getItems(idToOmit) {
       try {
         const items = await postgres.query({
-          /**
-           *  @TODO: Advanced queries
-           *
-           *  Get all Items. If the idToOmit parameter has a value,
-           *  the query should only return Items were the ownerid column
-           *  does not contain the 'idToOmit'
-           *
-           *  Hint: You'll need to use a conditional AND and WHERE clause
-           *  to your query text using string interpolation
-           */
-
           text: `select * from items where items.ownerid <> $1`, //and items.borrowerid is not null;`,
           values: idToOmit ? [idToOmit] : []
         });
@@ -129,10 +118,6 @@ module.exports = postgres => {
     async getItemsForUser(id) {
       try {
         const items = await postgres.query({
-          /**
-           *  @TODO: Advanced queries
-           *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-           */
           text: `select * from items where items.ownerid = $1;`,
           values: [id]
         });
@@ -144,10 +129,6 @@ module.exports = postgres => {
     async getBorrowedItemsForUser(id) {
       try {
         const items = await postgres.query({
-          /**
-           *  @TODO: Advanced queries
-           *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
-           */
           text: `select * from items where items.borrowerid = $1`,
           values: [id]
         });
