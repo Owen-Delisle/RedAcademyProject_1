@@ -95,7 +95,7 @@ module.exports = app => {
 
     Item: {
       //Get user that owns item
-      async itemowner(root, _, { pgResource }) {
+      async ownerid(root, _, { pgResource }) {
         try {
           return pgResource.getUserById(root.ownerid);
         } catch (error) {

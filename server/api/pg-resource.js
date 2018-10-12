@@ -147,7 +147,7 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `select itemtags.tag_id, tags.title from itemtags INNER JOIN tags ON (itemtags.tag_id = tags.id) where item_id = $1;`, // @TODO: Advanced queries
+        text: `select itemtags.tag_id, tags.title, tags.id from itemtags INNER JOIN tags ON (itemtags.tag_id = tags.id) where item_id = $1;`, // @TODO: Advanced queries
         values: [id]
       };
 
