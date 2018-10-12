@@ -60,7 +60,7 @@ module.exports = app => {
           const item = pgResource.getItems(filter);
           return item;
         } catch (error) {
-          throw error;
+          throw new ApolloError();
         }
         // -------------------------------
       },
@@ -69,7 +69,7 @@ module.exports = app => {
         try {
           return pgResource.getTags();
         } catch (error) {
-          throw error;
+          throw new ApolloError();
         }
         // -------------------------------
       }
@@ -92,7 +92,7 @@ module.exports = app => {
         try {
           return pgResource.getItemsForUser(root.id);
         } catch (error) {
-          throw error;
+          new ApolloError();
         }
         //   // -------------------------------
       },
@@ -101,7 +101,7 @@ module.exports = app => {
         try {
           return pgResource.getBorrowedItemsForUser(root.id);
         } catch (error) {
-          throw error;
+          new ApolloError();
         }
         // -------------------------------
       }
@@ -125,7 +125,7 @@ module.exports = app => {
         try {
           return pgResource.getUserById(root.ownerid);
         } catch (error) {
-          throw error;
+          new ApolloError();
         }
 
         // -------------------------------
@@ -136,7 +136,7 @@ module.exports = app => {
         try {
           return pgResource.getTagsForItem(root.id);
         } catch (error) {
-          throw error;
+          new ApolloError();
         }
         //   // -------------------------------
       },
@@ -148,7 +148,7 @@ module.exports = app => {
         try {
           return pgResource.getUserById(root.borrowerid);
         } catch (error) {
-          throw error;
+          new ApolloError();
         }
         // -------------------------------
       }
