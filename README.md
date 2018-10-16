@@ -1,5 +1,7 @@
 # Boomtown 🏙
 
+Boomtown is a social webapp that allows users to post items and borrow other users items.
+
 ## Server
 
 Commands must be run from the `server` directory:
