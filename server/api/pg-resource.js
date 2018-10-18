@@ -115,6 +115,17 @@ module.exports = postgres => {
         throw error;
       }
     },
+    async getItemById(id) {
+      try {
+        const items = await postgres.query({
+          text: `select * from items where items.id = $1`,
+          values: [id]
+        });
+        return items.rows[0];
+      } catch (error) {
+        throw error;
+      }
+    },
     async getItemsForUser(id) {
       try {
         const items = await postgres.query({

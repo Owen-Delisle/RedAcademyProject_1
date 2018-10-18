@@ -55,7 +55,7 @@ module.exports = app => {
           throw new ApolloError(e);
         }
       },
-      //Get Items by ID
+      //Get Items that != User ID
       async items(parent, { filter }, { pgResource }) {
         try {
           const item = pgResource.getItems(filter);
@@ -63,6 +63,10 @@ module.exports = app => {
         } catch (error) {
           throw new ApolloError();
         }
+      },
+      async item(parent, { id }, { pgResource }) {
+        const item = pgResource.getItemById(id);
+        return item;
       },
       //Get Tags
       async tags(parent, { id }, { pgResource }) {

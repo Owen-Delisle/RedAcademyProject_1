@@ -24,13 +24,24 @@ import gql from 'graphql-tag';
 
 const ItemFields = gql`
   fragment ItemFields on Item {
+    id
     title
     description
   }
 `;
 
 export const ITEM_QUERY = gql`
-  query items($filter: ID!) {
+  query item($id: ID!) {
+    item(id: $id) {
+      ...ItemFields
+    }
+  }
+  ${ItemFields}
+`;
+
+// Query items (optionally by tag id) and return the ItemFields fragment.
+export const ALL_ITEMS_QUERY = gql`
+  query items($filter: ID) {
     items(filter: $filter) {
       ...ItemFields
     }
@@ -38,20 +49,14 @@ export const ITEM_QUERY = gql`
   ${ItemFields}
 `;
 
-// export const ALL_ITEMS_QUERY = gql`
-//   query items($filter: ID) {
-//     # @TODO: Query items (optionally by tag id) and return the ItemFields fragment.
-//   }
-//   ${ItemFields}
-// `;
-
-// export const ALL_USER_ITEMS_QUERY = gql`
-//   query user($id: ID!) {
-//     # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
-//     # Use the ItemFields fragment for the items and borrowed fields.
-//   }
-//   ${ItemFields}
-// `;
+export const ALL_USER_ITEMS_QUERY = gql`
+  query user($id: ID!) {
+    items(filter: $id) {
+      ...ItemFields
+    }
+  }
+  ${ItemFields}
+`;
 
 // export const ALL_TAGS_QUERY = gql`
 //   query {
