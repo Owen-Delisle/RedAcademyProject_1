@@ -3,11 +3,13 @@ import React from 'react';
 
 import styles from './styles';
 
-const Items = ({ classes }) => {
+const Items = ({ classes, data }) => {
   return (
     <div>
       <p>
-        This is the items page located at <code>/items</code>.
+        {data.items.map(item => {
+          return item.title + ': ' + item.description + '. ';
+        })}
       </p>
     </div>
   );
