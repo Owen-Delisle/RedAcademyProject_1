@@ -11,6 +11,8 @@ import { ApolloProvider } from 'react-apollo';
 import registerServiceWorker from './registerServiceWorker';
 import theme from './theme';
 import client from './apollo';
+import { BrowserRouter as Router } from 'react-router-dom';
+import 'typeface-roboto';
 
 /**
  * @TODO: Initialize Apollo Client
@@ -60,18 +62,21 @@ import client from './apollo';
 // @TODO: Remove this import once you have your router working below
 import Home from './pages/Home';
 import Items from './pages/Items';
+import Layout from './routes/Layout';
 // -------------------------------
 
 import './index.css';
 
 const App = () => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <CssBaseline />
-        <Items />
-      </ApolloProvider>
-    </MuiThemeProvider>
+    <Router>
+      <MuiThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <CssBaseline />
+          <Layout />
+        </ApolloProvider>
+      </MuiThemeProvider>
+    </Router>
   );
 };
 

@@ -37,7 +37,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5"
+    "redux-devtools-extension": "^2.13.5",
+    "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
     "husky": "0.14.3",
