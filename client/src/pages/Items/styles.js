@@ -1,9 +1,9 @@
 const styles = theme => ({
   flexContainer: {
-    backgroundColor: 'black',
-    padding: 100,
+    backgroundColor: '#2b2e33',
+    padding: '5%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'left'
   },
   cards: {
     paddingTop: 300

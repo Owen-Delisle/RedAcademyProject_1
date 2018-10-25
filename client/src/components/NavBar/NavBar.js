@@ -19,14 +19,12 @@ class NavBar extends Component {
   constructor() {
     super();
     this.state = { anchorEl: null };
-    console.log('Hello from NavBar!');
   }
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = url => {
-    console.log('Close called');
     this.setState({ anchorEl: null });
   };
 
@@ -74,8 +72,12 @@ class NavBar extends Component {
               open={Boolean(anchorEl)}
               onClose={this.handleClose}
             >
-              <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-              <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+              <MenuItem onClick={this.handleClose}>
+                <Link to={'/profile'}>Profile</Link>
+              </MenuItem>
+              <MenuItem onClick={this.handleClose}>
+                <Link to={'/home'}>Logout</Link>
+              </MenuItem>
             </Menu>
           </AppBar>
         </Grid>

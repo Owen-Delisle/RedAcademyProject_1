@@ -27,6 +27,11 @@ const ItemFields = gql`
     id
     title
     description
+    date_created
+    tags {
+      id
+      title
+    }
   }
 `;
 

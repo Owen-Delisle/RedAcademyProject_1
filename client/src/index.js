@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // @TODO: Uncomment each module as needed in your client app
 import { ApolloProvider } from 'react-apollo';
 // import { BrowserRouter } from 'react-router-dom'
-// import { Provider as ReduxProvider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux';
 // -------------------------------
 
 import registerServiceWorker from './registerServiceWorker';
@@ -49,6 +49,8 @@ import 'typeface-roboto';
  * prop's value.
  */
 
+import store from './redux';
+
 /**
  * @TODO: Add the Viewer Context
  *
@@ -69,14 +71,16 @@ import './index.css';
 
 const App = () => {
   return (
-    <Router>
-      <MuiThemeProvider theme={theme}>
-        <ApolloProvider client={client}>
-          <CssBaseline />
-          <Layout />
-        </ApolloProvider>
-      </MuiThemeProvider>
-    </Router>
+    <ReduxProvider store={store}>
+      <Router>
+        <MuiThemeProvider theme={theme}>
+          <ApolloProvider client={client}>
+            <CssBaseline />
+            <Layout />
+          </ApolloProvider>
+        </MuiThemeProvider>
+      </Router>
+    </ReduxProvider>
   );
 };
 

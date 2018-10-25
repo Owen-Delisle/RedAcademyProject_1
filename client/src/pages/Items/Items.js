@@ -5,15 +5,11 @@ import Grid from '@material-ui/core/Grid';
 
 import styles from './styles';
 
-const Items = ({ classes, data }) => {
+const Items = ({ classes, items }) => {
   return (
     <Grid container className={classes.flexContainer} spacing={24}>
-      {data.items.map(item => {
-        return (
-          <Grid item xs={4}>
-            <ShareItemCard item={item} />
-          </Grid>
-        );
+      {items.map(item => {
+        return <ShareItemCard item={item} key={item.id} />;
       })}
     </Grid>
   );
