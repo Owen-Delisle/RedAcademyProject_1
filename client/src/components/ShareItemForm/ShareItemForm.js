@@ -17,6 +17,7 @@ import {
   resetNewItemImage
 } from '../../redux/modules/ShareItemPreview.js';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
 
 class ShareForm extends Component {
   constructor() {
@@ -91,118 +92,131 @@ class ShareForm extends Component {
   render() {
     const { classes, tags, updateNewItem } = this.props;
     return (
-      <Form
-        onSubmit={(e, form) => this.submitTheForm(e, form)}
-        render={({ handleSubmit, pristine, invalid }) => (
-          <form className={classes.shareItemForm}>
-            <FormSpy
-              subscription={{ values: true }}
-              component={({ values }) => {
-                if (values) {
-                  this.dispatchUpdate(values, tags, updateNewItem);
-                }
-                return '';
-              }}
-            />
-            <Typography variant="display3">Share. Borrow. Prosper.</Typography>
-            <Field
-              // inputProps={{ ...input }}
-              name="imageurl"
-              render={({ input, meta }) => (
-                <React.Fragment>
-                  {!this.state.fileSelected ? (
-                    <Button
-                      onClick={() => {
-                        this.fileInput.current.click();
-                      }}
-                    >
-                      <Typography>Select Image</Typography>
-                    </Button>
-                  ) : (
-                    <Button onClick={() => this.resetFileInput()}>
-                      <Typography>Reset Image</Typography>
-                    </Button>
+      <Grid className={classes.shareItemFormGrid}>
+        <Form
+          onSubmit={(e, form) => this.submitTheForm(e, form)}
+          render={({ handleSubmit, pristine, invalid }) => (
+            <form className={classes.shareItemForm}>
+              <FormSpy
+                subscription={{ values: true }}
+                component={({ values }) => {
+                  if (values) {
+                    this.dispatchUpdate(values, tags, updateNewItem);
+                  }
+                  return '';
+                }}
+              />
+              <Typography variant="display3">
+                Share. Borrow. Prosper.
+              </Typography>
+              <Field
+                // inputProps={{ ...input }}
+                name="imageurl"
+                render={({ input, meta }) => (
+                  <React.Fragment>
+                    {!this.state.fileSelected ? (
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        // className={classes.imageButton}
+                        onClick={() => {
+                          this.fileInput.current.click();
+                        }}
+                      >
+                        <Typography>Select Image</Typography>
+                      </Button>
+                    ) : (
+                      <Button onClick={() => this.resetFileInput()}>
+                        <Typography>Reset Image</Typography>
+                      </Button>
+                    )}
+                    <input
+                      type="file"
+                      ref={this.fileInput}
+                      accept="image/*"
+                      hidden
+                      onChange={event => this.handleSelectFile(event)}
+                    />
+                  </React.Fragment>
+                )}
+              />
+              <FormControl fullWidth className={classes.formControl}>
+                {/* @TODO: Wrap in a Final Form <Field /> */}
+                <Field
+                  name="title"
+                  render={({ input, meta }) => (
+                    <TextField
+                      id="filled-multiline-flexible"
+                      rowsMax="4"
+                      inputProps={{ ...input }}
+                      className={classes.titleInput}
+                      margin="normal"
+                      placeholder="Title"
+                    />
                   )}
-                  <input
-                    type="file"
-                    ref={this.fileInput}
-                    accept="image/*"
-                    hidden
-                    onChange={event => this.handleSelectFile(event)}
-                  />
-                </React.Fragment>
-              )}
-            />
-            <FormControl fullWidth className={classes.formControl}>
-              {/* @TODO: Wrap in a Final Form <Field /> */}
-              <Field
-                name="title"
-                render={({ input, meta }) => (
-                  <TextField
-                    id="filled-multiline-flexible"
-                    rowsMax="4"
-                    inputProps={{ ...input }}
-                    className={classes.textField}
-                    margin="normal"
-                  />
-                )}
-              />
-              {/* @TODO: Close Final Form <Field /> */}
-            </FormControl>
-            <FormControl fullWidth className={classes.formControl}>
-              {/* @TODO: Wrap in a Final Form <Field /> */}
-              <Field
-                name="description"
-                render={({ input, meta }) => (
-                  <TextField
-                    id="filled-multiline-flexible"
-                    rowsMax="4"
-                    inputProps={{ ...input }}
-                    className={classes.textField}
-                    margin="normal"
-                  />
-                )}
-              />
+                />
+                {/* @TODO: Close Final Form <Field /> */}
+              </FormControl>
+              <FormControl fullWidth className={classes.formControl}>
+                {/* @TODO: Wrap in a Final Form <Field /> */}
+                <Field
+                  name="description"
+                  render={({ input, meta }) => (
+                    <TextField
+                      className={classes.descriptionInput}
+                      placeholder="Description"
+                      id="filled-multiline-flexible"
+                      rowsMax="4"
+                      inputProps={{ ...input }}
+                      // margin="normal"
+                    />
+                  )}
+                />
 
-              {/* @TODO: Close Final Form <Field /> */}
-              <Field name="tags">
-                {({ input, meta }) => (
-                  <Select
-                    className={classes.multiline}
-                    multiple
-                    renderValue={selectedTags => {
-                      return this.generateTagsText(tags, selectedTags);
-                    }}
-                    value={this.state.selectedTags}
-                    onChange={event => this.handleSelectTag(event)}
-                  >
-                    {tags.map(tag => (
-                      <MenuItem key={tag.id} value={tag.id}>
-                        <Checkbox
-                          checked={this.state.selectedTags.indexOf(tag.id) > -1}
-                        />
-                        {tag.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                )}
-              </Field>
-              <Button
-                type="submit"
-                className={classes.formButton}
-                variant="contained"
-                size="large"
-                color="secondary"
-                disabled={
-                  false // @TODO: This prop should depend on pristine or valid state of form
-                }
-              >
-                SHARE
-              </Button>
-            </FormControl>
-          </form>
-        )}
-      />
+                {/* @TODO: Close Final Form <Field /> */}
+                <Field name="tags">
+                  {({ input, meta }) => (
+                    <Select
+                      placeholder="Tags"
+                      className={classes.multiline}
+                      multiple
+                      renderValue={selectedTags => {
+                        return this.generateTagsText(tags, selectedTags);
+                      }}
+                      value={this.state.selectedTags}
+                      onChange={event => this.handleSelectTag(event)}
+                    >
+                      {tags.map(tag => (
+                        <MenuItem key={tag.id} value={tag.id}>
+                          <Checkbox
+                            checked={
+                              this.state.selectedTags.indexOf(tag.id) > -1
+                            }
+                          />
+                          {tag.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                </Field>
+                <Button
+                  type="submit"
+                  className={classes.formButton}
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                  disabled={
+                    false // @TODO: This prop should depend on pristine or valid state of form
+                  }
+                >
+                  SHARE
+                </Button>
+              </FormControl>
+            </form>
+          )}
+        />
+      </Grid>
     );
   }
 }

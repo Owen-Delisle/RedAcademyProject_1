@@ -1,9 +1,10 @@
 const style = theme => ({
   card: {
     maxWidth: 450,
-    width: 400,
-    height: 450,
-    margin: 30
+    width: 450,
+    height: 550,
+    margin: 30,
+    wordWrap: 'break-word'
   },
   media: {
     height: 300
@@ -19,6 +20,16 @@ const style = theme => ({
   avatar: {
     height: 60,
     width: 60
+  },
+  borrowButton: {
+    position: 'relative',
+    top: 0
+  },
+  tagsGrid: {
+    position: 'relative',
+    top: 20,
+    height: 50,
+    width: 400
   }
 });
 

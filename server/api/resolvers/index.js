@@ -18,8 +18,8 @@ const { ApolloError } = require('apollo-server-express');
 //Owen Delisle
 
 // @TODO: Uncomment these lines later when we add auth
-// const jwt = require("jsonwebtoken")
-// const authMutations = require("./auth")
+const jwt = require('jsonwebtoken');
+const authMutations = require('./auth');
 // -------------------------------
 const { UploadScalar, DateScalar } = require('../custom-types');
 
@@ -133,7 +133,7 @@ module.exports = app => {
 
     Mutation: {
       // @TODO: Uncomment this later when we add auth
-      // ...authMutations(app),
+      ...authMutations(app),
       // -------------------------------
 
       async addItem(parent, args, { pgResource }, context, info) {

@@ -63,6 +63,17 @@ module.exports = gql`
     tags: [AssignedTag]!
   }
 
+  input newUserInsert {
+    email: String!
+    fullname: String!
+    password: String!
+  }
+
+  input Login {
+    username: String!
+    password: String!
+  }
+
   type Query {
     user(id: ID!): User
     viewer: User
@@ -73,5 +84,18 @@ module.exports = gql`
 
   type Mutation {
     addItem(item: NewItemInput!, image: Upload): Item
+
+    signup(input: newUserInsert!): User
+
+    login(username: String!, password: String!): User
+
+    logout: Boolean
   }
 `;
+
+// type Mutation {
+//   signup(input: newUserInsert): User
+
+//   }
+
+// addUser(user: newUserInsert!, fullname: String!, email: String!, password!): User

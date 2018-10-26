@@ -1,12 +1,37 @@
 const styles = theme => ({
   shareItemForm: {},
 
+  imageButton: {
+    color: 'white',
+    position: 'relative',
+    top: 50
+  },
+
   formButton: {
-    marginTop: 40
+    marginTop: 40,
+    position: 'relative',
+    top: 105
   },
 
   multiline: {
-    marginTop: 40
+    marginTop: 40,
+    position: 'relative',
+    top: 105
+  },
+
+  shareItemFormGrid: {
+    width: 450,
+    height: 550
+  },
+
+  descriptionInput: {
+    position: 'relative',
+    top: 105
+  },
+
+  titleInput: {
+    position: 'relative',
+    top: 70
   }
 });
 

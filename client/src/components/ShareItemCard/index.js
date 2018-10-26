@@ -29,21 +29,26 @@ function ShareItemCard(props) {
         <Grid container className={classes.avatarContainer} spacing={24}>
           <Grid item xs={2}>
             <Avatar
-            // alt="Remy Sharp"
-            // src="https://pbs.twimg.com/profile_images/821849411991044096/lQFa_Vly_400x400.jpg"
-            // className={classes.avatar}
+              alt="Remy Sharp"
+              src="http://www.carderator.com/assets/avatar_placeholder_small.png"
+              className={classes.avatar}
             />
           </Grid>
           <Grid item xs={5}>
-            {item.tags.map(tag => tag.title)}
+            Owen Delisle
           </Grid>
         </Grid>
         <Typography>{item.title}</Typography>
         <Typography component="p">{item.description}</Typography>
+        <Grid item xs={5}>
+          <div className={classes.tagsGrid}>
+            {item.tags.map(tag => tag.title).join(', ')}
+          </div>
+        </Grid>
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" className={classes.borrowButton}>
           Borrow
         </Button>
       </CardActions>

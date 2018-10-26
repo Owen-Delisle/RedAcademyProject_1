@@ -31,15 +31,18 @@ function tagsQueryString(tags, itemid, result) {
   return result;
 }
 
+// INSERT INTO users (fullname, email, password)
 module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: '', // @TODO: Authentication - Server
-        values: [fullname, email, password]
+        text:
+          'INSERT INTO "public"."users" ("email", "fullname", "password") VALUES($1, $2, $3) RETURNING "id", "email", "fullname", "password";',
+        values: [email, fullname, password]
       };
       try {
         const user = await postgres.query(newUserInsert);
+        console.log(user);
         return user.rows[0];
       } catch (e) {
         switch (true) {
@@ -48,7 +51,7 @@ module.exports = postgres => {
           case /users_email_key/.test(e.message):
             throw 'An account with this email already exists.';
           default:
-            throw 'There was a problem creating your account.';
+            throw e;
         }
       }
     },

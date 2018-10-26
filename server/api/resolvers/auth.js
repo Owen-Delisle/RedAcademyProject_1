@@ -24,7 +24,7 @@ function setCookie({ tokenName, token, res }) {
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname, bio } = user; // Omit the password from the token
+  const { id, email, fullname } = user; // Omit the password from the token
   /**
    *  @TODO: Authentication - Server
    *
@@ -35,13 +35,23 @@ function generateToken(user, secret) {
    *  which can be decoded using the app secret to retrieve the stateless session.
    */
   // Refactor this return statement to return the cryptographic hash (the Token)
-  return '';
+  const token = jwt.sign(
+    {
+      email: email,
+      id: id,
+      fullname: fullname
+    },
+    secret
+  );
+
+  return token;
   // -------------------------------
 }
 
-module.exports = (app) => {
+module.exports = app => {
   return {
     async signup(parent, args, context) {
+      console.log('args', args);
       try {
         /**
          * @TODO: Authentication - Server
@@ -54,24 +64,23 @@ module.exports = (app) => {
          * and store that instead. The password can be decoded using the original password.
          */
         // @TODO: Use bcrypt to generate a cryptographic hash to conceal the user's password before storing it.
-        const hashedPassword = '';
+        const hashedPassword = bcrypt.hashSync(args.input.password);
+        // const hashedPassword = '';
         // -------------------------------
 
         const user = await context.pgResource.createUser({
-          fullname: args.user.fullname,
-          email: args.user.email,
+          fullname: args.input.fullname,
+          email: args.input.email,
           password: hashedPassword
         });
-
+        console.log('new user:', user);
         setCookie({
           tokenName: app.get('JWT_COOKIE_NAME'),
           token: generateToken(user, app.get('JWT_SECRET')),
           res: context.req.res
         });
 
-        return {
-          id: user.id
-        };
+        return { id: user.id };
       } catch (e) {
         throw new AuthenticationError(e);
       }

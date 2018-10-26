@@ -94,12 +94,15 @@ export const ALL_TAGS_QUERY = gql`
 //   }
 // `;
 
-// export const SIGNUP_MUTATION = gql`
-//   mutation signup($user: SignupInput!) {
-//     # @TODO: Pass the user into the signup mutation as an argument
-//     # and return the id of the new user when the mutation is complete.
-//   }
-// `;
+export const SIGNUP_MUTATION = gql`
+  mutation user($user: newUserInsert!) {
+    signup(user: $user) {
+      id
+      email
+      fullname
+    }
+  }
+`;
 
 // export const LOGIN_MUTATION = gql`
 //   mutation login($user: LoginInput!) {
