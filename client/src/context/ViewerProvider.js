@@ -13,5 +13,19 @@ export const ViewerProvider = ({ children }) => {
    * Replace the <Fragment /> component with an Apollo <Query /> component
    * with a <ViewerContext.Provider /> nested inside that wrap the children.
    */
-  return <Fragment>{children}</Fragment>;
+  return (
+    <Query query={VIEWER_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) return 'Loading...';
+        if (error) return `Error! ${error.message}`;
+        if (data) {
+          return (
+            <ViewerContext.Provider value={{ user: data.viewer }}>
+              {children}
+            </ViewerContext.Provider>
+          );
+        }
+      }}
+    </Query>
+  );
 };

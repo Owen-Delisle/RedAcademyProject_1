@@ -13,6 +13,7 @@ import theme from './theme';
 import client from './apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'typeface-roboto';
+import { ViewerProvider } from './context/ViewerProvider';
 
 /**
  * @TODO: Initialize Apollo Client
@@ -71,16 +72,18 @@ import './index.css';
 
 const App = () => {
   return (
-    <ReduxProvider store={store}>
-      <Router>
-        <MuiThemeProvider theme={theme}>
-          <ApolloProvider client={client}>
-            <CssBaseline />
-            <Layout />
-          </ApolloProvider>
-        </MuiThemeProvider>
-      </Router>
-    </ReduxProvider>
+    <ApolloProvider client={client}>
+      <ViewerProvider>
+        <ReduxProvider store={store}>
+          <Router>
+            <MuiThemeProvider theme={theme}>
+              <CssBaseline />
+              <Layout />
+            </MuiThemeProvider>
+          </Router>
+        </ReduxProvider>
+      </ViewerProvider>
+    </ApolloProvider>
   );
 };
 

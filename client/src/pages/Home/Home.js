@@ -36,6 +36,7 @@ const Home = ({ classes }) => {
         </Typography>
         <AccountForm />
       </Grid>
+      <button>Login</button>
     </Grid>
   );
 };

@@ -29,7 +29,8 @@ module.exports = app => {
     // Date: DateScalar,
 
     Query: {
-      viewer() {
+      viewer(root, args, context) {
+        context.token;
         /**
          * @TODO: Authentication - Server
          *
