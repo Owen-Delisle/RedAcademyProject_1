@@ -30,7 +30,10 @@ module.exports = app => {
 
     Query: {
       viewer(root, args, context) {
-        context.token;
+        if (context.token) {
+          return jwt.decode(context.token, app.get('JWT_SECRET'));
+        }
+
         /**
          * @TODO: Authentication - Server
          *
@@ -45,6 +48,7 @@ module.exports = app => {
          *  the token's stored user here. If there is no token, the user has signed out,
          *  in which case you'll return null
          */
+
         return null;
       },
       //Get user by ID

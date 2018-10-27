@@ -42,7 +42,7 @@ module.exports = postgres => {
       };
       try {
         const user = await postgres.query(newUserInsert);
-        console.log(user);
+        console.log('da user', user);
         return user.rows[0];
       } catch (e) {
         switch (true) {
@@ -57,7 +57,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: '', // @TODO: Authentication - Server
+        text: 'SELECT * FROM users WHERE email = $1', // @TODO: Authentication - Server
         values: [email]
       };
       try {

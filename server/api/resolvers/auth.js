@@ -18,7 +18,9 @@ function setCookie({ tokenName, token, res }) {
    */
   // Refactor this method with the correct configuration values.
   res.cookie(tokenName, token, {
-    // @TODO: Supply the correct configuration values for our cookie here
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60 * 2 //2h
   });
   // -------------------------------
 }
@@ -87,10 +89,20 @@ module.exports = app => {
     },
 
     async login(parent, args, context) {
+      console.log('Logged in user args', args);
       try {
         const user = await context.pgResource.getUserAndPasswordForVerification(
-          args.user.email
+          args.input.email
         );
+        const valid = await bcrypt.compare(args.input.password, user.password);
+        if (!valid || !user) {
+          console.log('Valid:', valid, 'User', user);
+        }
+        setCookie({
+          tokenName: app.get('JWT_COOKIE_NAME'),
+          token: generateToken(user, app.get('JWT_SECRET')),
+          res: context.req.res
+        });
 
         /**
          *  @TODO: Authentication - Server
@@ -99,15 +111,8 @@ module.exports = app => {
          *  they submitted from the login form to decrypt the 'hashed' version stored in out database.
          */
         // Use bcrypt to compare the provided password to 'hashed' password stored in your database.
-        const valid = false;
         // -------------------------------
-        if (!valid || !user) throw 'User was not found.';
-
-        setCookie({
-          tokenName: app.get('JWT_COOKIE_NAME'),
-          token: generateToken(user, app.get('JWT_SECRET')),
-          res: context.req.res
-        });
+        // if (!valid || !user) throw 'User was not found to be alive.';
 
         return {
           id: user.id

@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 function ShareItemCard(props) {
   const { classes } = props;
   const { item } = props;
-  console.log(item);
+  console.log('Item', item);
   return (
     <Card className={classes.card}>
       {/* <CardActionArea> */}

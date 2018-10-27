@@ -10,7 +10,7 @@ import { ViewerContext } from '../context/ViewerProvider';
 export default () => (
   <ViewerContext.Consumer>
     {({ user }) => {
-      console.log(user);
+      console.log('Current User:', user);
       return (
         <Fragment>
           {/* @TODO: Add your menu component here */}
@@ -19,7 +19,7 @@ export default () => (
             <Route exact path="/home" component={Home} />
             <Route exact path="/items" component={Items} />
             <Route exact path="/share" component={Share} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile/" component={Profile} />
             <Redirect to="/home" />
           </Switch>
         </Fragment>
