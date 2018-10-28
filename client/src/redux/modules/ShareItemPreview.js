@@ -20,7 +20,7 @@ const initialState = {
   description: 'Add a description',
   date: new Date(),
   imageurl: 'https://autowiz.in/images/blog-2.jpg',
-  owner: {},
+  ownerid: {},
   tags: []
 };
 

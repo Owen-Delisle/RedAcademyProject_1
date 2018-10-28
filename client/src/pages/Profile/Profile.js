@@ -5,8 +5,8 @@ import ProfileCard from '../../components/ProfileCard';
 
 import styles from './styles';
 
-const Profile = ({ classes, user }) => {
-  console.log('viewer', user);
+const Profile = ({ classes, items }) => {
+  console.log('Viewer items', items);
   return (
     <Grid container className={classes.flexContainer} spacing={24}>
       <ProfileCard />

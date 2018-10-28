@@ -11,19 +11,27 @@ export default () => (
   <ViewerContext.Consumer>
     {({ user }) => {
       console.log('Current User:', user);
-      return (
-        <Fragment>
-          {/* @TODO: Add your menu component here */}
-          <NavBar />
+      if (user) {
+        return (
+          <Fragment>
+            {/* @TODO: Add your menu component here */}
+            <NavBar />
+            <Switch>
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/items" component={Items} />
+              <Route exact path="/share" component={Share} />
+              <Route exact path="/profile/" component={Profile} />
+            </Switch>
+          </Fragment>
+        );
+      } else {
+        return (
           <Switch>
             <Route exact path="/home" component={Home} />
-            <Route exact path="/items" component={Items} />
-            <Route exact path="/share" component={Share} />
-            <Route exact path="/profile/" component={Profile} />
-            <Redirect to="/home" />
+            <Redirect from="*" to="/home" />
           </Switch>
-        </Fragment>
-      );
+        );
+      }
     }}
   </ViewerContext.Consumer>
 );

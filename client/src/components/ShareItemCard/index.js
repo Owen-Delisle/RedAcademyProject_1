@@ -35,7 +35,7 @@ function ShareItemCard(props) {
             />
           </Grid>
           <Grid item xs={5}>
-            Owen Delisle
+            {item.ownerid.fullname}
           </Grid>
         </Grid>
         <Typography>{item.title}</Typography>
