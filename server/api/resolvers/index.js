@@ -141,7 +141,7 @@ module.exports = app => {
       ...authMutations(app),
       // -------------------------------
 
-      async addItem(parent, args, { pgResource }, context, info) {
+      async addItem(parent, args, context, info) {
         /**
          *  @TODO: Destructuring
          *
@@ -155,12 +155,11 @@ module.exports = app => {
          *  destructuring should look like.
          */
 
-        // image = await image;
         const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
         const newItem = await context.pgResource.saveNewItem({
           item: args.item,
-          // image: args.image,
-          user
+          user: user,
+          tags: args.item.tags
         });
         return newItem;
       }

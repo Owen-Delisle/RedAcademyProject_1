@@ -3,8 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-// import { Redirect } from 'react-router-dom'
-
 import AccountForm from '../../components/AccountForm';
 
 import styles from './styles';

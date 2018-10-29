@@ -6,16 +6,6 @@ import { ITEM_QUERY } from '../../apollo/queries';
 import { ALL_USER_ITEMS_QUERY } from '../../apollo/queries';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 
-// const GET_ITEMS = gql`
-//   {
-//     items(filter: 1) {
-//       id
-//       title
-//       description
-//     }
-//   }
-// `;
-
 class ItemsContainer extends Component {
   render() {
     return (

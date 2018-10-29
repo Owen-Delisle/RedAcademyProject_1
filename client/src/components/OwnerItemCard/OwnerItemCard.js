@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
 import { ViewerContext } from '../../context/ViewerProvider';
 
-function ProfileCard(props) {
+function OwnerItemCard(props) {
   const { classes } = props;
   const { item, borrowed } = props;
   console.log('ProfileCard item', item);
@@ -23,21 +23,13 @@ function ProfileCard(props) {
             {({ user }) => <h1>{user.fullname}</h1>}
           </ViewerContext.Consumer>
           <h2 className={classes.sharedAndBorrowsTitle}>
-            {item.length} Items shared {borrowed.length} Items borrowed
+            {item.title}
+            {item.borrowed}
           </h2>
-          <ViewerContext.Consumer className={classes.userBio}>
-            {({ user }) => {
-              if (user.bio !== null) {
-                return <h2>{user.bio}</h2>;
-              } else {
-                return <h2>"No bio provided."</h2>;
-              }
-            }}
-          </ViewerContext.Consumer>
         </Grid>
       </Grid>
     </Grid>
   );
 }
 
-export default withStyles(styles)(ProfileCard);
+export default withStyles(styles)(OwnerItemCard);

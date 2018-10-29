@@ -34,6 +34,7 @@ const ItemFields = gql`
     }
     ownerid {
       fullname
+      email
     }
   }
 `;
@@ -59,8 +60,13 @@ export const ALL_ITEMS_QUERY = gql`
 
 export const ALL_USER_ITEMS_QUERY = gql`
   query user($id: ID!) {
-    items(filter: $id) {
-      ...ItemFields
+    user(id: $id) {
+      items {
+        ...ItemFields
+      }
+      borrowed {
+        ...ItemFields
+      }
     }
   }
   ${ItemFields}
@@ -75,12 +81,18 @@ export const ALL_TAGS_QUERY = gql`
   }
 `;
 
-// export const ADD_ITEM_MUTATION = gql`
-//   mutation addItem($item: NewItemInput!, $image: Upload!) {
-//     # @TODO: Pass the item and image into the addItem mutation as arguments
-//     # and return the new item id when the mutation is complete.
-//   }
-// `;
+export const ADD_ITEM_MUTATION = gql`
+  mutation addItem($item: NewItemInput!) {
+    addItem(item: $item) {
+      title
+      description
+      tags {
+        id
+        title
+      }
+    }
+  }
+`;
 
 // /**
 //  * Auth-related queries and mutations.
@@ -96,15 +108,16 @@ export const VIEWER_QUERY = gql`
     }
   }
 `;
-// export const LOGOUT_MUTATION = gql`
-//   mutation {
-//     # @TODO: Run the logout mutation.
-//   }
-// `;
+
+export const LOGOUT_MUTATION = gql`
+  mutation {
+    logout
+  }
+`;
 
 export const SIGNUP_MUTATION = gql`
-  mutation user($user: newUserInsert!) {
-    signup(user: $user) {
+  mutation signup($input: NewUserInsert!) {
+    signup(input: $input) {
       id
       email
       fullname
@@ -113,8 +126,8 @@ export const SIGNUP_MUTATION = gql`
 `;
 
 export const LOGIN_MUTATION = gql`
-  mutation login($user: LoginInput!) {
-    login(user: $user) {
+  mutation login($input: Login!) {
+    login(input: $input) {
       id
     }
   }

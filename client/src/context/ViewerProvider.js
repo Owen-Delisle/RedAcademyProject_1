@@ -6,13 +6,6 @@ import { VIEWER_QUERY } from '../apollo/queries';
 export const ViewerContext = React.createContext();
 
 export const ViewerProvider = ({ children }) => {
-  /**
-   * @TODO: Create the ViewerContext provider to supply information about
-   * the currently logged-in user throughout the application.
-   *
-   * Replace the <Fragment /> component with an Apollo <Query /> component
-   * with a <ViewerContext.Provider /> nested inside that wrap the children.
-   */
   return (
     <Query query={VIEWER_QUERY}>
       {({ loading, error, data }) => {

@@ -14,6 +14,9 @@ import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import BoomTownLogo from '../../images/boomtown2.svg';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import { LOGOUT_MUTATION } from '../../apollo/queries';
+import { graphql, compose } from 'react-apollo';
+import { VIEWER_QUERY } from '../../apollo/queries';
 
 class NavBar extends Component {
   constructor() {
@@ -30,7 +33,7 @@ class NavBar extends Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, logoutMutation } = this.props;
     return (
       this.props.location.pathname != '/home' && (
         <Grid container className={classes.flexContainer} spacing={24}>
@@ -76,7 +79,9 @@ class NavBar extends Component {
                 <Link to={'/profile'}>Profile</Link>
               </MenuItem>
               <MenuItem onClick={this.handleClose}>
-                <Link to={'/home'}>Logout</Link>
+                <Link to={'/home'} onClick={logoutMutation}>
+                  Logout
+                </Link>
               </MenuItem>
             </Menu>
           </AppBar>
@@ -86,4 +91,18 @@ class NavBar extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(NavBar));
+const refetchQueries = [
+  {
+    query: VIEWER_QUERY
+  }
+];
+
+export default compose(
+  graphql(LOGOUT_MUTATION, {
+    options: {
+      refetchQueries
+    },
+    name: 'logoutMutation'
+  }),
+  withStyles(styles)
+)(withRouter(NavBar));

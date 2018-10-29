@@ -1,9 +1,9 @@
 const style = theme => ({
   profileCardContainer: {
-    backgroundColor: '#2b2e33',
-    padding: '1%',
+    direction: 'row',
+    justify: 'center',
     alignItems: 'center',
-    justifyContent: 'left'
+    padding: 100
   },
   profileCard: {
     width: '90%',

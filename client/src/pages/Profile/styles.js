@@ -3,9 +3,7 @@ const styles = theme => ({
     backgroundColor: '#2b2e33',
     padding: '1%',
     alignItems: 'center',
-    justifyContent: 'left',
-    height: '100%',
-    width: '100%'
+    justifyContent: 'left'
   }
 });
 

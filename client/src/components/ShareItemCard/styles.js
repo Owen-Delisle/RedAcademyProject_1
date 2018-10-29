@@ -30,6 +30,9 @@ const style = theme => ({
     top: 20,
     height: 50,
     width: 400
+  },
+  gravatar: {
+    borderRadius: 50
   }
 });
 

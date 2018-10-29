@@ -22,18 +22,8 @@ class AccountForm extends Component {
     super(props);
     this.state = {
       formToggle: true
-      // emailInput: '',
-      // passwordInput: ''
     };
   }
-
-  // handleEmailInputChange(event) {
-  //   this.setState({ emailInput: event.target.value });
-  // }
-
-  // handlePasswordInputChange(event) {
-  //   this.setState({ passwordInput: event.target.value });
-  // }
 
   render() {
     const { classes, loginMutation, signupMutation } = this.props;
@@ -42,7 +32,7 @@ class AccountForm extends Component {
       <Form
         onSubmit={values => {
           console.log('Form Submitted');
-          const user = { variables: { user: values } };
+          const user = { variables: { input: values } };
           console.log('User', user);
           this.state.formToggle
             ? loginMutation(user).catch(error => this.setState({ error }))
@@ -50,20 +40,23 @@ class AccountForm extends Component {
         }}
         validate={validate.bind(this)}
         render={({ handleSubmit, pristine, invalid, values }) => (
-          <form className={classes.accountForm}>
+          <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
-                {/* @TODO: Wrap in a Final Form <Field /> */}
-                <Input
-                  id="fullname"
-                  type="text"
-                  inputProps={{
-                    autoComplete: 'off'
-                  }}
-                  value={''}
-                />
-                {/* @TODO: Close Final Form <Field /> */}
+                <Field name="fullname">
+                  {/* @TODO: Wrap in a Final Form <Field /> */}
+                  {({ input, meta }) => (
+                    <Input
+                      id="fullname"
+                      type="text"
+                      inputProps={{
+                        autoComplete: 'off'
+                      }}
+                      {...input}
+                    />
+                  )}
+                </Field>
               </FormControl>
             )}
             <FormControl fullWidth className={classes.formControl}>
